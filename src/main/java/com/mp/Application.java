@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.mp.web","com.mp.dao","com.mp.service"})
+@ComponentScan(basePackages = {"com.mp.web","com.mp.dao","com.mp.service","com.mp.redis","com.mp.utils"})
 @MapperScan("com.mp.dao")
 public class Application {
 

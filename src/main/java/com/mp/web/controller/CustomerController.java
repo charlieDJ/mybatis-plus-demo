@@ -4,9 +4,13 @@ package com.mp.web.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.mp.bean.Customer;
+import com.mp.redis.CustomerCache;
 import com.mp.service.ICustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -20,13 +24,15 @@ import java.util.List;
  * @since 2017-11-24
  */
 @RestController
+@RequestMapping("/customer")
 public class CustomerController {
 
+    private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     private ICustomerService customerService;
 
-    @GetMapping("/customer/findAll")
+    @GetMapping("/findAll")
     public List<Customer> findAll(){
         List<Customer> customers = customerService.selectPage(
                 new Page<Customer>(1, 2),
@@ -35,7 +41,7 @@ public class CustomerController {
         return customers;
     }
 
-    @GetMapping("/customer/find")
+    @GetMapping("/find")
     public List<Customer> find(){
         Customer customer = new Customer();
         List<Customer> customers = customer.selectPage(
@@ -43,6 +49,16 @@ public class CustomerController {
                 new EntityWrapper<Customer>()
         ).getRecords();
         return customers;
+    }
+
+    @GetMapping("/cache")
+    public Customer cache(){
+//        CustomerCache.refresh();
+        Customer customer = CustomerCache.get("1");
+        logger.info(customer.toString());
+        CustomerCache.delete();
+        customer = CustomerCache.get("1");
+        return customer;
     }
 }
 
