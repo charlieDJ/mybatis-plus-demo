@@ -9,13 +9,13 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Component
+//未开启缓存则不注入这个bean
+//@Component
 public class CustomerCache implements ApplicationListener<ContextRefreshedEvent> {
 
     /*@Autowired

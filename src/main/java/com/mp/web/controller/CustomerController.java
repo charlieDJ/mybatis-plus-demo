@@ -60,5 +60,13 @@ public class CustomerController {
         customer = CustomerCache.get("1");
         return customer;
     }
+
+    @GetMapping("/log")
+    public String log(){
+        logger.debug("debug");
+        logger.info("info");
+        logger.error("error");
+        return "Success";
+    }
 }
 
