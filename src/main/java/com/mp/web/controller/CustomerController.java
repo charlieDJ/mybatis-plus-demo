@@ -7,6 +7,7 @@ import com.mp.bean.Customer;
 import com.mp.common.ServerResponse;
 import com.mp.redis.CustomerCache;
 import com.mp.service.ICustomerService;
+import com.mp.validator.PhoneNum;
 import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,12 @@ public class CustomerController {
         Optional<Customer> customer = Optional.ofNullable(customerService.selectById(id));
         return ServerResponse.createBySuccess(customer.get());
     }
+
+    @GetMapping("/validate-phone-num")
+    public ServerResponse<String> validatePhoneNum(@PhoneNum String phoneNum){
+        return ServerResponse.createBySuccess();
+    }
+
 
     @GetMapping("/cache")
     public Customer cache(){
