@@ -3,6 +3,9 @@ package com.mp.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.mp.bean.Customer;
+import org.apache.ibatis.annotations.SelectProvider;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,5 +16,6 @@ import com.mp.bean.Customer;
  * @since 2017-11-24
  */
 public interface CustomerMapper extends BaseMapper<Customer> {
-
+    @SelectProvider(type = CustomerProvider.class, method = "findByOriginal")
+    List<Customer> findByOriginal();
 }

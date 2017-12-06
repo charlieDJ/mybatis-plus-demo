@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.mp.bean.Customer;
 import com.mp.common.ServerResponse;
+import com.mp.dao.CustomerMapper;
 import com.mp.redis.CustomerCache;
 import com.mp.service.ICustomerService;
 import com.mp.validator.PhoneNum;
@@ -37,6 +38,8 @@ public class CustomerController {
 
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @GetMapping("/findAll")
     public List<Customer> findAll(){
@@ -54,6 +57,12 @@ public class CustomerController {
                 new Page<Customer>(1, 3),
                 new EntityWrapper<Customer>()
         ).getRecords();
+        return customers;
+    }
+
+    @GetMapping("/find-original")
+    public List<Customer> findByOriginal(){
+        List<Customer> customers = customerMapper.findByOriginal();
         return customers;
     }
 
