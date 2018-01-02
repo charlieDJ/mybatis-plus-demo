@@ -54,6 +54,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     @SuppressWarnings("rawtypes")
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
+        //EhCache的CacheManager要被注入到spring的EhCacheCacheManager之中
         RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
         //设置缓存过期时间
         //rcm.setDefaultExpiration(60);//秒

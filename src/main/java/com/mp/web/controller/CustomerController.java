@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,6 +95,14 @@ public class CustomerController {
         logger.info("info");
         logger.error("error");
         return "Success";
+    }
+
+    @GetMapping("/cache2")
+    @Cacheable("customerCache")
+    public Customer cache2(String id){
+        //只要缓存里面有这个键值对，不再进入方法。
+        Customer customer = customerService.selectById(id);
+        return customer;
     }
 }
 

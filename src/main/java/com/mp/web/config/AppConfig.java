@@ -2,6 +2,7 @@ package com.mp.web.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,12 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 
 @Configuration
 public class AppConfig {
+
+
+    @Bean
+    public Queue Queue() {
+        return new Queue("hello");
+    }
 
     @Bean
     public ServletRegistrationBean statViewServlet(){
